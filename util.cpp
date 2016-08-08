@@ -49,8 +49,8 @@ vector<string> find_paren_exper(string& target, vector<string>& expers) {
 		
 		if(open_index != string::npos && close_index != string::npos) {
 			string temp = target.substr(open_index + 1, close_index - (open_index + 1));
-			expers.insert(expers.cbegin(), restore_exper(temp)); 
-			flag(target, open_index, close_index);
+			expers.insert(expers.cbegin(), restore_exper(temp)); //restore_exper is called in case additional passes were required. 
+			flag(target, open_index, close_index); 
 			find_paren_exper(target, expers);
 		}
 		return expers;
