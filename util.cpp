@@ -56,3 +56,43 @@ vector<string> find_paren_exper(string& target, vector<string>& expers) {
 		return expers;
 	}
 }
+/*function for removing operators after numbers are parsed from experssions*/
+vector<string>& remove_operators(vector<string>& target) {
+	for(auto it = target.begin(); it != target.end(); ++it) {
+		if(*it == "(" ||
+		   *it == ")" ||
+		   *it == "^" ||
+		   *it == "*" ||
+		   *it == "/" ||
+		   *it == "+" ||
+		   *it == "-" ||
+		   *it == " " ){
+			   auto tmp = it;
+			   target.erase(tmp);
+			   it = target.begin();
+		   }
+	}
+	return target;
+}
+
+vector<string> split (const string& line, const string& delimiters) {
+   vector<string> words;
+   int end = 0;
+   for (;;) {
+      size_t start = line.find_first_not_of (delimiters, end);
+      if (start == string::npos) break;
+      end = line.find_first_of (delimiters, start);
+      words.push_back (line.substr (start, end - start));
+   }
+   return words;
+}
+/*function for breaking the expression string into strings of operands*/
+vector<string>& parse_for_operands(string& target, vector<string>& result) {
+	const string EXPER = target;
+	const string DELIMS = "()^*/ ";
+	
+    result = split(EXPER, DELIMS);
+	result = remove_operators(result);
+	return result;
+	
+}
