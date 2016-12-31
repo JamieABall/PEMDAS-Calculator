@@ -1,6 +1,6 @@
 #include "util.h"
 
-/*removes all white space from a string*/
+/*removes all white space from @param target*/
 string& deep_trim(string& target) {
 	if(target.empty()) {
 		return target;
@@ -86,7 +86,25 @@ vector<string> split (const string& line, const string& delimiters) {
    }
    return words;
 }
-/*function for breaking the expression string into strings of operands*/
+/*function to convert the numerical values in @param target into long integers for mathematical calculations*/
+vector<long> process_expr(string& target) {
+	vector<long> result;
+	vector<string> operands;
+	
+	parse_for_operands(target, operands);
+	
+	for(string str: operands) {
+		long value;
+		istringstream str_stream(str);
+		
+		if(!(str_stream >> value)) {
+			value = 0;
+		}
+		result.push_back(value);
+	}
+	return result;
+}
+/*function for breaking @param target into strings of operands*/
 vector<string>& parse_for_operands(string& target, vector<string>& result) {
 	const string EXPER = target;
 	const string DELIMS = "()^*/ ";
